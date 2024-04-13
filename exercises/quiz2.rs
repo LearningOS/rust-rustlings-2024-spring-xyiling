@@ -20,7 +20,6 @@
 //
 // No hints this time!
 
-// I AM NOT DONE
 
 pub enum Command {
     Uppercase,
@@ -28,24 +27,46 @@ pub enum Command {
     Append(usize),
 }
 
+
+fn repeat_string_with_append(s: &str, append: &str, count: usize) -> String {
+    let repeated: String = std::iter::once(s).chain(std::iter::repeat(append).take(count)).collect();
+    repeated
+}
 mod my_module {
     use super::Command;
+    use super::repeat_string_with_append;
 
     // TODO: Complete the function signature!
-    pub fn transformer(input: ???) -> ??? {
+    pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
         // TODO: Complete the output declaration!
-        let mut output: ??? = vec![];
+        let mut output: Vec<String> = vec![];
         for (string, command) in input.iter() {
             // TODO: Complete the function body. You can do it!
+            match command {
+                Command::Uppercase => {
+                    println!("string = {}, to_uppercase() = {}", string, string.to_uppercase().to_string());
+                    output.push(string.to_uppercase());
+                },
+                Command::Trim => {
+                    println!("{}\n{}", string, string.trim().to_string());
+                    output.push(string.trim().to_string());
+                },
+                Command::Append(x) => {
+                    let str = repeat_string_with_append(string, "bar", *x);
+                    println!("str = {}", str);
+                    output.push(str);
+                }
+            }
         }
         output
     }
 }
 
+
 #[cfg(test)]
 mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
-    use ???;
+    use super::my_module::transformer;
     use super::Command;
 
     #[test]

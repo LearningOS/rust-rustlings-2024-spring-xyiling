@@ -3,8 +3,8 @@
 // Execute `rustlings hint errors4` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
+// 这道题要求补充在创建 `PositiveNonzeroInteger` 时的错误处理逻辑。
+// 需要增加new方法的match逻辑
 #[derive(PartialEq, Debug)]
 struct PositiveNonzeroInteger(u64);
 
@@ -16,8 +16,13 @@ enum CreationError {
 
 impl PositiveNonzeroInteger {
     fn new(value: i64) -> Result<PositiveNonzeroInteger, CreationError> {
+        match value {
+            v if v < 0 => return Err(CreationError::Negative),
+            0 => return Err(CreationError::Zero),
+            x => return Ok(PositiveNonzeroInteger(value as u64))
+        }
         // Hmm...? Why is this only returning an Ok value?
-        Ok(PositiveNonzeroInteger(value as u64))
+        // Ok(PositiveNonzeroInteger(value as u64))
     }
 }
 

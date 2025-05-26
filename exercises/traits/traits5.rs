@@ -7,8 +7,7 @@
 // Execute `rustlings hint traits5` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
+// 这道题考察trait的多重实现，使用 impl Trait1 + Trait2 的语法来实现一个函数接受同时实现了两个trait的类型。
 pub trait SomeTrait {
     fn some_function(&self) -> bool {
         true
@@ -30,7 +29,7 @@ impl SomeTrait for OtherStruct {}
 impl OtherTrait for OtherStruct {}
 
 // YOU MAY ONLY CHANGE THE NEXT LINE
-fn some_func(item: ??) -> bool {
+fn some_func(item: impl SomeTrait + OtherTrait) -> bool {
     item.some_function() && item.other_function()
 }
 
